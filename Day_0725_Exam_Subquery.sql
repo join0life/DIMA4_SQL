@@ -6,7 +6,8 @@ SELECT DATABASE ();
 -- 1. SELF JOIN을 사용하여 'Oliver' 사원의 부서명, 그 사원과 동일한 부서에서
 -- 근무하는 동료 사원의 이름을 조회. 단, 각 열의 별칭은 부서명, 동료로 할 것. (서브쿼리로!)
 SELECT e.first_name AS "동료", d.department_name AS "부서명" 
-FROM hr.employees e INNER JOIN hr.departments d 
+FROM hr.employees e INNER JOIN hr.departments d
+ON e.department_id = d.department_id 
 WHERE (SELECT department_id 
 		FROM hr.employees e 
 		WHERE first_name = 'Oliver');

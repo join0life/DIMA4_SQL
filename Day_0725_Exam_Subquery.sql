@@ -67,10 +67,7 @@ WHERE department_id IN (SELECT department_id
 
 -- 9. 평균 급여보다 많은 급여를 받고 이름에 M이 포함된 사원과 같은 부서에서 근무하는 사원의 사원번호,
 -- 이름, 급여를 조회하시오.
-SELECT employee_id, first_name, salary
-FROM hr.employees e
-WHERE salary > ANY (SELECT department_id
-				FROM hr.employees e 
-				WHERE salary > (SELECT avg(salary) 
-						FROM hr.employees e)
-		AND first_name LIKE "%M%");
+SELECT employee_id, first_name, salary, department_id 
+FROM hr.employees e 
+WHERE salary > ANY (SELECT avg(salary) FROM hr.employees e) 
+AND department_id  = ANY(SELECT department_id FROM hr.employees e2 WHERE first_name LIKE '%M%');

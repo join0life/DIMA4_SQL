@@ -191,11 +191,20 @@ HAVING avg(salary) > 5000;
 
 -- hr 데이터베이스 내에 있는 여러 테이블을 이용해서 그룹핑
 -- 1단계) countries 테이블에 몇 개의 나라가 등록되어 있는지 확인
+SELECT count(*)
+FROM hr.countries;
 
 -- 2단계) countries 테이블의 country_id 값은 locations 테이블에서 사용됨
 --		locations 테이블에서 나라별로 도시를 묶을 수 있다.
+SELECT country_id, COUNT(city) AS "도시 개수"
+FROM hr.locations
+GROUP BY country_id;
 
 -- 3단계) 나라 이름, 나라별 도시의 수를 조회하시오
+SELECT country_name, COUNT(city) AS "도시 개수"
+FROM hr.locations l INNER JOIN hr.countries c
+ON l.country_id = c.country_id
+GROUP BY country_name;
 
 -- [연습문제]
 
